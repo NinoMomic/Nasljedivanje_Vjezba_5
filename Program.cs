@@ -4,39 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nasljedivanje_Ponavljanje
+namespace nasljedjivanje_ponavljanje
 {
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-
-        }
-    }
-
     class GeometrijskiLik
     {
-        int BrojStranica;
-        double[] Stranice = new double[10];
+        int brojStranica;
+        double[] stranice = new double[10];
 
         public void UcitajStranice()
         {
             for (int i = 0; i < BrojStranica; i++)
             {
-                Console.WriteLine("Upišite duljinu stranice "+i);
+                Console.WriteLine("Upišite duljinu {0} stranice: ",
+                    i + 1);
                 string s = Console.ReadLine();
-                Stranice[i] = Convert.ToDouble(s);
+                stranice[i] = Convert.ToDouble(s);
             }
 
         }
 
         public double Opseg()
         {
-            double Opseg = 0;
-            for (int i = 0; i <= BrojStranica; i++)
-            Opseg = +Stranice[i]; 
-            return Opseg;
+            double opseg = 0;
+            for (int i = 0; i < BrojStranica; i++)
+            {
+                opseg += stranice[i];
+            }
+            return opseg;
         }
+
+        public int BrojStranica { get => BrojStranica; set => BrojStranica = value; }
+        public double[] Stranice { get => stranice; set => stranice = value; }
     }
 
     class Trokut : GeometrijskiLik
@@ -46,12 +44,33 @@ namespace Nasljedivanje_Ponavljanje
             BrojStranica = 3;
         }
     }
-    
+
     class Cetverokut : GeometrijskiLik
     {
-        public Cetverokut ()
+        public Cetverokut()
         {
-            BrojStranica = 4;   
+            BrojStranica = 4;
+        }
+    }
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Izračunavanje opsega trokuta" +
+                "i četverokuta\r\n");
+            Trokut trokut = new Trokut();
+            Console.WriteLine("Upiši duljine stranica trokuta\r\n");
+            trokut.UcitajStranice();
+            Console.WriteLine("Opseg trokuta je: {0}",
+                trokut.Opseg());
+
+            Cetverokut cetverokut = new Cetverokut();
+            Console.WriteLine("Upiši duljine stranica četverokuta\r\n");
+            cetverokut.UcitajStranice();
+            Console.WriteLine("Opseg četverokuta je: {0}",
+                cetverokut.Opseg());
+
+            Console.ReadKey();
         }
     }
 }
